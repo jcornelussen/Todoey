@@ -16,6 +16,7 @@ class TodoListViewController: SwipeTableViewController {
   var todoItems: Results<Item>?
   let realm = try! Realm()
   
+  
   var selectedCategory : Category? {
     didSet {
       loadItems()
@@ -27,15 +28,35 @@ class TodoListViewController: SwipeTableViewController {
     super.viewDidLoad()
     // Do any additional setup after loading the view, typically from a nib.
     
-//    print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
-    
-//    searchBar.delegate = self
-    
     tableView.separatorStyle = .none
+    
+    searchBar.delegate = self
   }
   
   
- 
+  override func viewWillAppear(_ animated: Bool) {
+    title = selectedCategory?.name
+    
+    guard let colorHex = selectedCategory?.displayColor else { fatalError() }
+    updateNavBar(withHexCode: colorHex)
+  }
+  
+  override func viewWillDisappear(_ animated: Bool) {
+    updateNavBar(withHexCode: "1D9BF6")
+  }
+  
+  //MARK: - Nav Bar Setup Methods
+  func updateNavBar(withHexCode colorHexCode: String) {
+    guard let navBar = navigationController?.navigationBar else {fatalError("Navigation controller does not exist.")}
+    guard let navBarColor = UIColor(hexString: colorHexCode) else { fatalError() }
+    
+    navBar.barTintColor = navBarColor
+    navBar.tintColor = ContrastColorOf(navBarColor, returnFlat: true)
+    navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor :  ContrastColorOf(navBarColor, returnFlat: true) ]
+    
+    searchBar.barTintColor = navBarColor
+
+  }
   
   
   //MARK: - Tableview Datasource Methods
@@ -161,13 +182,14 @@ extension TodoListViewController : UISearchBarDelegate {
 
 
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-
+    
     // see NSPredicate cheat sheet on Realm or downloaded PDF.
     todoItems = todoItems?.filter("title CONTAINS[cd] %@", searchBar.text!).sorted(byKeyPath: "dateCreated", ascending: true)
     tableView.reloadData()
   }
 
   func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    
     if searchBar.text?.count == 0 {
       loadItems()
 

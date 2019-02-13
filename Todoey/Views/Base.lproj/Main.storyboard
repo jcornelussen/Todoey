@@ -78,14 +78,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Items" id="O0f-do-q0h">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="HJg-8B-edD">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="addButtonPressed:" destination="Kd6-yB-O9v" id="yqc-Va-2ix"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchBar" destination="jRD-qt-aeK" id="V7k-wO-DQR"/>
+                        <outlet property="searchBar" destination="jRD-qt-aeK" id="7ux-Li-qdl"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O8e-Ad-r7n" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -97,8 +96,8 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UwB-dM-6j6" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZOW-kM-THN">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="ZOW-kM-THN">
+                        <rect key="frame" x="0.0" y="44" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.22059412319999999" green="0.72489340830000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
